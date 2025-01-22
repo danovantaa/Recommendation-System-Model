@@ -1,4 +1,4 @@
-<img width="1076" alt="Screenshot 2025-01-22 at 10 46 35" src="https://github.com/user-attachments/assets/0fab24cb-fbaf-4db6-9dcc-397f9b709ed9" /># Laporan Proyek Machine Learning - Zefanya Danovanta Tarigan
+# Laporan Proyek Machine Learning - Zefanya Danovanta Tarigan
 
 ## Project Overview
 
@@ -76,15 +76,18 @@ Karena ketiga dataset yang digunakan merupakan dataset dalam jumlah yang banyak 
 Agar dapat memudahkan untuk proses kualifikasi, maka ketiga dataset tersebut digabungkan satu sama lain yaitu : 
 1. Dataset `Books` dengan Dataset `Ratings`
     - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_train`**
-      <img width="1056" alt="Screenshot 2025-01-22 at 09 49 25" src="https://github.com/user-attachments/assets/bd29e365-b296-4615-b563-7072071641b1" />
+        <img width="885" alt="Screenshot 2025-01-22 at 12 08 29" src="https://github.com/user-attachments/assets/1c88b00d-1280-41cb-b3d3-aed9230e3f55" />
+
       Dengan 3341 baris dan 7 kolom
 
 2. Dataset `Ratings` dengan Dataset `Users`
     - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_using`**
-    <img width="756" alt="Screenshot 2025-01-22 at 09 51 34" src="https://github.com/user-attachments/assets/83e3c86e-2655-46c4-b85b-546fc82775a0" />
-    Dengan 2439 baris dan 4 kolom
+        <img width="710" alt="Screenshot 2025-01-22 at 12 07 14" src="https://github.com/user-attachments/assets/034aaa23-ef9e-4263-8b30-40007fad604b" />
 
-Lalu setelah itu membuat barplot dengan judul "10 Tahun terbanyak publikasi" digunakan untuk melihat lonjakan terbanyak dalam publikasi buku.
+      Dengan 2439 baris dan 4 kolom
+
+Lalu setelah itu membuat barplot dengan judul "10 Tahun terbanyak publikasi" digunakan untuk melihat lonjakan terbanyak dalam publikasi buku.    
+
 <img width="856" alt="Screenshot 2025-01-22 at 09 58 20" src="https://github.com/user-attachments/assets/7002e89e-896b-42e1-9ad8-0b34b135bdaf" />
 
 Untuk menampilkan "Jumlah Rating Buku yang Diberikan Pengguna" menggunakan barplot dimana menampilkan Jumlah Buku dan Book_Rating. Berikut merupakan tampilan dari barplot 10 ID Pengguna terpopuler:
