@@ -38,7 +38,7 @@ Berdasarkan rumusan masalah yang telah dipaparkan di atas, maka proyek penelitia
 
 ### Solution Statements
 
-Untuk menyelesaikan permasalahan di atas, kita akan menggunakan satu algoritma sistem rekomendasi sebagai solusi permasalahan, yakni :
+Untuk menyelesaikan permasalahan di atas, Akan menggunakan satu algoritma sistem rekomendasi sebagai solusi permasalahan, yakni :
 
 - Collaborative filtering bergantung pada pendapat komunitas pengguna. Ia tidak memerlukan atribut untuk setiap itemnya seperti pada sistem berbasis konten. Kelebihan dari teknik ini yakni dapat membantu pengguna menemukan minat baru. Kekurangannya yakni tidak dapat menangani item baru/fresh. Jadi, jika item tidak terlihat selama pelatihan, sistem tidak dapat melakukan proses embedding untuk item tersebut dan tidak dapat mengkueri model dengan item ini.
 
@@ -50,8 +50,11 @@ Dataset yang digunakan dalam proyek machine learning ini adalah Book Recommendat
 
 Dataset yang pertama adalah **Users.csv** memiliki jumlah 278858 data dan 3 kolom, yakni :
 1. `User-ID` : ID pengguna dari toko buku online. **Tipe data =** `Int64`
+   - Jumlah Baris : 
 2. `Location`: lokasi pengguna. **Tipe data =** `Object`
-3. `Age` : usia pengguna. **Tipe data =** `Float64`
+4. `Age` : usia pengguna. **Tipe data =** `Float64`
+
+Dari gambar tersebut dapat diketahui dataset tersebut tidak memiliki duplikasi data dan memiliki missing value 110.762 baris pada kolom age 
 
 Dataset yang kedua yakni 'Books' yang memiliki jumlah 278858 data dan memiliki 8 kolom, diantaranya :
 1. `ISBN`: identifikasi dari masing-masing buku. **Tipe data =** `Object`
@@ -63,13 +66,18 @@ Dataset yang kedua yakni 'Books' yang memiliki jumlah 278858 data dan memiliki 8
 7. `Image-URL-M`: URL gambar cover buku dalam ukuran M(Medium) **Tipe data =** `Object`
 8. `Image-URL-L`: URL gambar cover buku dalam ukuran L(Large) **Tipe data =** `Object`
 
+![Screenshot 2025-01-24 213459](https://github.com/user-attachments/assets/63796c07-cdf2-4e3d-bf5b-f8e67dd58743)
+dari gambar tersebut dapat diketahui dataset tersebut tidak memiliki duplikasi data dan memmiliki missing value pada kolom Book-Author yaitu 2 baris, Publisher 2 baris dan Image-URL-L yaitu 3 baris
+
 Dataset yang ketiga yakni 'Ratings' yang memiliki jumlah 1149780 data dan memiliki 3 kolom, berikut penjelasan mengenai kolom-kolomnya :
 Ratings.csv
 
 1. `User-ID`: ID dari user yang memberikan rating terhadap buku. **Tipe data =** `Int64`
 2. `Kolom 'ISBN`: identifikasi buku atau nomor buku yang diberi rating oleh user **Tipe data =** `Object`
 3. `Book-Rating`: nilai Rating dari buku, skala yang ada dalam rating ini yakni dari 0-10. **Tipe data =** `Int64`
-
+   
+![Screenshot 2025-01-24 213936](https://github.com/user-attachments/assets/7b0b31ce-7bd3-4bbe-bdc9-86c384e33a65)
+Dari gambar tersebut dapat diketahui dataset tersebut tidak memiliki duplikasi data dan masing masing kolom memiliki 1149780 yang berarti tidak memiliki missing value/ nilai yang kosong 
 ### Visualisasi Data dan analisis eksplorasi data (EDA)
 Membuat barplot dengan judul "10 Tahun terbanyak publikasi" digunakan untuk melihat lonjakan terbanyak dalam publikasi buku.    
 
@@ -96,7 +104,7 @@ membuat rata-rata rating dengan buku terbanyak dibaca dimana untuk menampilkanny
 
 
 ## Data Preparation
-Data preparation bertujuan untuk menyiapkan data sebelum masuk ke proses modeling. Selain itu, data preparation juga berguna untuk meningkatkan akurasi saat training data. Pada dataset ini, yang akan kita lakukan yaitu menggabungkan dataset dengan fungsi merge() dan key ISBN, menghapus missing value serta menurut dataset berdasarkan ISBN serta menghapus hasil duplikat.
+Data preparation bertujuan untuk menyiapkan data sebelum masuk ke proses modeling. Selain itu, data preparation juga berguna untuk meningkatkan akurasi saat training data. Pada dataset ini, yang akan dilakukan yaitu menggabungkan dataset dengan fungsi merge() dan key ISBN, menghapus missing value serta menurut dataset berdasarkan ISBN serta menghapus hasil duplikat.
 
 Karena ketiga dataset yang digunakan merupakan dataset dalam jumlah yang banyak yaitu ada lebih dari 200.000, maka di pada proses ini hanya mengambil 12.000 data pertama dari setiap variabel di atas dalam pembuatan sistem rekomendasi ini.
 
@@ -120,9 +128,13 @@ Dilakukan persiapan penghapusan data duplikat, dengan membuat variable baru deng
 <img width="1046" alt="Screenshot 2025-01-22 at 11 00 21" src="https://github.com/user-attachments/assets/8ae37182-bc6e-42a0-a127-cc0e7d4be06d" />
 
   setelah dilakukan persiapan dilanjutkan dengan penghapusan data duplikat menggunakan fungsi drop_duplicates. Penghapusan data duplikat berguna bila data train dan data test ada yang sama maka akan dihasilkan jumlah rows berkurang ketika dilakukan penghapusan data duplikat.
+  
 ### Konversi data series dan pembuatan dictionary
 Melakukan proses pengkonversian data series dalam bentuk list dimana menggunakan fungsi  `tolist()` dari library numpy. Proses ini menampilkan output dari jumlah books_id, books_title dan books_author yang memiliki jumlah yang sama yaitu 2519. Tahap berikutnya, membuat dictionary yang gunanya untuk menentukan pasangan key-value dari data books_id, books_title dan books_author.
 
+### Drop Kolom
+1. Pada dataset **data_books** kolom `Image-URL-S`, `Image-URL-M` dan `Image-URL-L` akan dihapus karena kolom tersebut tidak akan dipakai
+2. Pada dataset **data_users** kolom `Age` akan dihapus karena kolom tersebut akan dihapus
 ### Encode
 pada proses ini digunakan untuk menyandikan (encode) fitur ke dalam indeks integer dimana fitur yang digunakan yaitu fitur `UserID` dan `ISBN`.
 
