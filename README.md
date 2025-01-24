@@ -71,29 +71,14 @@ Ratings.csv
 3. `Book-Rating`: nilai Rating dari buku, skala yang ada dalam rating ini yakni dari 0-10. **Tipe data =** `Int64`
 
 ### Visualisasi Data dan analisis eksplorasi data (EDA)
-Karena ketiga dataset yang digunakan merupakan dataset dalam jumlah yang banyak yaitu ada lebih dari 200.000, maka di pada proses ini hanya mengambil 12.000 data pertama dari setiap variabel di atas dalam pembuatan sistem rekomendasi ini.
-
-Agar dapat memudahkan untuk proses kualifikasi, maka ketiga dataset tersebut digabungkan satu sama lain yaitu : 
-1. Dataset `Books` dengan Dataset `Ratings`
-    - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_train`**
-        <img width="885" alt="Screenshot 2025-01-22 at 12 08 29" src="https://github.com/user-attachments/assets/1c88b00d-1280-41cb-b3d3-aed9230e3f55" />
-
-      Dengan 3341 baris dan 7 kolom
-
-2. Dataset `Ratings` dengan Dataset `Users`
-    - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_using`**
-        <img width="710" alt="Screenshot 2025-01-22 at 12 07 14" src="https://github.com/user-attachments/assets/034aaa23-ef9e-4263-8b30-40007fad604b" />
-
-      Dengan 2439 baris dan 4 kolom
-
-Lalu setelah itu membuat barplot dengan judul "10 Tahun terbanyak publikasi" digunakan untuk melihat lonjakan terbanyak dalam publikasi buku.    
+Membuat barplot dengan judul "10 Tahun terbanyak publikasi" digunakan untuk melihat lonjakan terbanyak dalam publikasi buku.    
 
 <img width="856" alt="Screenshot 2025-01-22 at 09 58 20" src="https://github.com/user-attachments/assets/7002e89e-896b-42e1-9ad8-0b34b135bdaf" />
 
 Untuk menampilkan "Jumlah Rating Buku yang Diberikan Pengguna" menggunakan barplot dimana menampilkan Jumlah Buku dan Book_Rating. Berikut merupakan tampilan dari barplot 10 ID Pengguna terpopuler:
 <img width="865" alt="Screenshot 2025-01-22 at 10 33 03" src="https://github.com/user-attachments/assets/323dbeb5-9db9-4a5d-b662-ac199b5a519f" />
 
-Untuk menampilkan "10 penulis terpopuler" saya menggunakan barplot dimana menampilkan count dan nama penulis. Berikut merupakan tampilan dari barplot 10 penulis terpopuler:
+Untuk menampilkan "10 penulis terpopuler" dengan menggunakan barplot dimana menampilkan count dan nama penulis. Berikut merupakan tampilan dari barplot 10 penulis terpopuler:
 <img width="1008" alt="Screenshot 2025-01-22 at 10 34 45" src="https://github.com/user-attachments/assets/6a143616-f361-44c0-b041-66db5d2a44fa" />
   penulis dengan nama “James Patterson” menjadi peringkat pertama pada penulis terpopuler dan penulis peringkat kedelapan dan kesembilan memiliki jumlah yang sama.
 
@@ -111,6 +96,21 @@ membuat rata-rata rating dengan buku terbanyak dibaca dimana untuk menampilkanny
 
 
 ## Data Preparation
+Data preparation bertujuan untuk menyiapkan data sebelum masuk ke proses modeling. Selain itu, data preparation juga berguna untuk meningkatkan akurasi saat training data. Pada dataset ini, yang akan kita lakukan yaitu menggabungkan dataset dengan fungsi merge() dan key ISBN, menghapus missing value serta menurut dataset berdasarkan ISBN serta menghapus hasil duplikat.
+
+Karena ketiga dataset yang digunakan merupakan dataset dalam jumlah yang banyak yaitu ada lebih dari 200.000, maka di pada proses ini hanya mengambil 12.000 data pertama dari setiap variabel di atas dalam pembuatan sistem rekomendasi ini.
+
+Agar dapat memudahkan untuk proses kualifikasi, maka ketiga dataset tersebut digabungkan satu sama lain yaitu : 
+1. Dataset `Books` dengan Dataset `Ratings`
+    - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_train`**
+        <img width="885" alt="Screenshot 2025-01-22 at 12 08 29" src="https://github.com/user-attachments/assets/1c88b00d-1280-41cb-b3d3-aed9230e3f55" />
+
+      Dengan 3341 baris dan 7 kolom
+
+2. Dataset `Ratings` dengan Dataset `Users`
+    - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_using`**
+        <img width="710" alt="Screenshot 2025-01-22 at 12 07 14" src="https://github.com/user-attachments/assets/034aaa23-ef9e-4263-8b30-40007fad604b" />
+      Dengan 2439 baris dan 4 kolom
 
 ### Pengecekan Missing Values
 Jumlah nilai null adalah 0 pada masing masing kolom, dari 5 dataset. Hal ini menandakan bahwa dataset yang diambil tidak memiliki missing value
@@ -137,9 +137,9 @@ Pada tahap ini menggunakan model collaborative filtering dimana menggunakan meto
 2. Langkah selanjutnya dengan melakukan proses compile terhadap model yang terdiri dari loss function yang menggunakan Binary Crossentropy, optimizer yang menggunakan Adam (Adaptive Moment Estimation) dan untuk metrics evaluation yaitu root mean squared error (RMSE) kemudian dilanjutkan dengan proses training
 
 3. Tahap akhir yaitu dengan mengambil sampel user secara acak dan definisikan variabel **book_not_visited** yang merupakan daftar book yang belum pernah dikunjungi oleh pengguna. Variabel book_not_visited diperoleh dengan menggunakan operator bitwise (~) pada variabel **book_visited_by_user**. Kemudian dalam memperoleh rekomendasi buku menggunakan fungsi model.predict() dari library Keras.
-<img width="853" alt="Screenshot 2025-01-22 at 11 35 04" src="https://github.com/user-attachments/assets/5c8d8f39-7139-4a2a-b238-2b2954433f42" />
+    <img width="704" alt="Screenshot 2025-01-24 at 02 08 23" src="https://github.com/user-attachments/assets/849df559-9ff1-445d-bae2-d238b1c9bb83" />
 
-Gambar tersebut merupakan hasil rekomendasi dari model collaborative filtering dimana user dengan id 278418.  10 Rekomendasi Buku Teratas yang salah satunya yaitu ‘Little Altars Everywhere : Rebecca Wells’.
+Gambar tersebut merupakan hasil rekomendasi dari model collaborative filtering dimana user dengan id 914.  10 Rekomendasi Buku Teratas yang salah satunya yaitu ‘Les Fourmis : Bernard Werber’.
 ## Evaluation
 Menggunakan dua metrik evaluasi yang digunakan untuk mengukur kinerja model pada collaborative filtering, yang pertama menggunakan metrik Root Mean Squared Error (RMSE) dan metrik Accuracy, berikut penjelasannya :
 
@@ -153,22 +153,22 @@ lalu visualisasi metrik tersebut menggunakan plot dari library
 
 |Metrik|Nilai|
 |:--------|:----:|
-|root_mean_squared_error|0.1493|
-|val_root_mean_squared_error| 0.2951|
+|root_mean_squared_error|0.1526|
+|val_root_mean_squared_error| 0.2949|
 
-  Pada Tabel tersebut diperoleh pada epoch 100/100 nilai root_mean_squared_error sebesar 0.1493 dan nilai val_root_mean_squared_error sebesar 0.2951
+  Pada Tabel tersebut diperoleh pada epoch 100/100 nilai root_mean_squared_error sebesar 0.1526 dan nilai val_root_mean_squared_error sebesar 0.2949
 
 2. **Mean Squared Error (MSE)**. Teknik ini menghitung selisih rata-rata nilai sebenarnya dengan nilai prediksi.
 Rumus dari MSE sebagai berikut :
   ![Rumus MSE](https://github.com/user-attachments/assets/236a0604-b06d-414a-b677-a08533da977f)
+    <img width="486" alt="Screenshot 2025-01-24 at 02 06 58" src="https://github.com/user-attachments/assets/d47dfb9d-ad00-4d6c-8e33-8714f6d0077e" />
 
-  <img width="479" alt="Screenshot 2025-01-22 at 11 59 35" src="https://github.com/user-attachments/assets/2040810a-350e-44f8-a996-5f52ba1d4ad1" />
 
   Pada Gambar Tersebut, Hasil dari kode program di atas yakni : 
   - MSE dari pada data train = 2.111916844346724e-05
   - MSE dari pada data validation = 8.685258439506148e-05
 
 ### Kesimpulan
-Berdasarkan dari hasil visualisasi metrik RMSE , MSE dari pada data train adalah 2.111916844346724e-05 dan MSE dari pada data validation adalah 8.685258439506148e-05. berdasarkan hal tersebut, pembuatan model dengan pendekatan Collaborative Filtering ini dapat digunakan untuk merekomendasikan buku yang belum pernah dibaca atau mungkin disukai pengguna. Selain itu, kini pengguna dapat mempersingkat waktu pencarian buku dengan memanfaatkan hasil rekomendasi yang telah diberikan oleh model.
+Berdasarkan dari hasil visualisasi metrik RMSE , MSE dari pada data train adalah 2.1176639194068425e-05 dan MSE dari pada data validation adalah 8.684515903366322e-05. berdasarkan hal tersebut, pembuatan model dengan pendekatan Collaborative Filtering ini dapat digunakan untuk merekomendasikan buku yang belum pernah dibaca atau mungkin disukai pengguna. Selain itu, kini pengguna dapat mempersingkat waktu pencarian buku dengan memanfaatkan hasil rekomendasi yang telah diberikan oleh model.
 
 
