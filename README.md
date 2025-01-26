@@ -50,21 +50,41 @@ Dataset yang digunakan dalam proyek machine learning ini adalah Book Recommendat
 
 Dataset yang pertama adalah **Users.csv** memiliki jumlah 278858 data dan 3 kolom, yakni :
 1. `User-ID` : ID pengguna dari toko buku online. **Tipe data =** `Int64`
-   - Jumlah Baris : 
+      - Jumlah Baris : 278858
+     
 2. `Location`: lokasi pengguna. **Tipe data =** `Object`
-4. `Age` : usia pengguna. **Tipe data =** `Float64`
+      - Jumlah Baris : 278858
+     
+3. `Age` : usia pengguna. **Tipe data =** `Float64`
+      - Jumlah Baris : 168096
+
 
 Dari gambar tersebut dapat diketahui dataset tersebut tidak memiliki duplikasi data dan memiliki missing value 110.762 baris pada kolom age 
 
 Dataset yang kedua yakni 'Books' yang memiliki jumlah 278858 data dan memiliki 8 kolom, diantaranya :
 1. `ISBN`: identifikasi dari masing-masing buku. **Tipe data =** `Object`
+      - Jumlah Baris : 271360
 2. `Book-Title`: judul buku. **Tipe data =** `Object`
+   - Jumlah Baris : 271360
+
 3. `Book-Author`: penulis buku. **Tipe data =** `Object` 
+   - Jumlah Baris : 271358
+
 4. `Year-Of-Publication`: tahun dipublikasikannya buku. **Tipe data =** `Object`
+   - Jumlah Baris : 271360
+
 5. `Publisher`: penerbit buku. **Tipe data =** `Object`
+   - Jumlah Baris : 271358
+
 6. `Image-URL-S`: URL gambar cover buku dalam ukuran S(Small) **Tipe data =** `Object`
+   - Jumlah Baris : 271360
+
 7. `Image-URL-M`: URL gambar cover buku dalam ukuran M(Medium) **Tipe data =** `Object`
+   - Jumlah Baris : 271360
+
 8. `Image-URL-L`: URL gambar cover buku dalam ukuran L(Large) **Tipe data =** `Object`
+   - Jumlah Baris : 271357
+
 
 ![Screenshot 2025-01-24 213459](https://github.com/user-attachments/assets/63796c07-cdf2-4e3d-bf5b-f8e67dd58743)
 dari gambar tersebut dapat diketahui dataset tersebut tidak memiliki duplikasi data dan memmiliki missing value pada kolom Book-Author yaitu 2 baris, Publisher 2 baris dan Image-URL-L yaitu 3 baris
@@ -73,8 +93,13 @@ Dataset yang ketiga yakni 'Ratings' yang memiliki jumlah 1149780 data dan memili
 Ratings.csv
 
 1. `User-ID`: ID dari user yang memberikan rating terhadap buku. **Tipe data =** `Int64`
+   - Jumlah Baris : 1149780
+
 2. `Kolom 'ISBN`: identifikasi buku atau nomor buku yang diberi rating oleh user **Tipe data =** `Object`
+   - Jumlah Baris : 1149780
+
 3. `Book-Rating`: nilai Rating dari buku, skala yang ada dalam rating ini yakni dari 0-10. **Tipe data =** `Int64`
+   - Jumlah Baris : 1149780
    
 ![Screenshot 2025-01-24 213936](https://github.com/user-attachments/assets/7b0b31ce-7bd3-4bbe-bdc9-86c384e33a65)
 Dari gambar tersebut dapat diketahui dataset tersebut tidak memiliki duplikasi data dan masing masing kolom memiliki 1149780 yang berarti tidak memiliki missing value/ nilai yang kosong 
