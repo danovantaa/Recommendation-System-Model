@@ -131,16 +131,34 @@ membuat rata-rata rating dengan buku terbanyak dibaca dimana untuk menampilkanny
 ## Data Preparation
 Data preparation bertujuan untuk menyiapkan data sebelum masuk ke proses modeling. Selain itu, data preparation juga berguna untuk meningkatkan akurasi saat training data. Pada dataset ini, yang akan dilakukan yaitu menggabungkan dataset dengan fungsi merge() dan key ISBN, menghapus missing value serta menurut dataset berdasarkan ISBN serta menghapus hasil duplikat.
 
-Karena ketiga dataset yang digunakan merupakan dataset dalam jumlah yang banyak yaitu ada lebih dari 200.000, maka di pada proses ini hanya mengambil 12.000 data pertama dari setiap variabel di atas dalam pembuatan sistem rekomendasi ini.
+Karena ketiga dataset yang digunakan merupakan dataset dalam jumlah yang banyak yaitu ada lebih dari 200.000, maka di pada proses ini hanya mengambil 12.000 data pertama dari setiap variabel di atas dalam pembuatan sistem rekomendasi ini dan menjadi variabel baru yaitu `data_users`, `data_books` dan `data_rating`
+<img width="572" alt="Screenshot 2025-01-27 at 17 03 43" src="https://github.com/user-attachments/assets/37ee5683-3649-4e51-a150-1620cd36f3af" />
+
+### Drop Kolom
+1. Pada dataset **data_books** kolom `Image-URL-S`, `Image-URL-M` dan `Image-URL-L` akan dihapus karena kolom tersebut tidak akan dipakai
+2. Pada dataset **data_users** kolom `Age` akan dihapus karena kolom tersebut akan dihapus
+
+### Rename Kolom
+1. Pada dataset **data_books** ada beberapa kolom akan diubah nama yaitu :
+      - `Book-Title` = `Book_Title`
+      - `Book-Author` = `Book_Author`
+      - `Year-Of-Publication` = `Year_Publication`
+        
+2. Pada dataset **data_rating** ada beberapa kolom akan diubah nama yaitu :
+    - `User-ID` = `UserID`
+    - `Book-Rating` = `Book_Rating`
+
+3. Pada dataset **data_users** ada kolom akan diubah nama yaitu :
+   - `User-ID` = `UserID`
 
 Agar dapat memudahkan untuk proses kualifikasi, maka ketiga dataset tersebut digabungkan satu sama lain yaitu : 
-1. Dataset `Books` dengan Dataset `Ratings`
+1. Dataset `data_books` dengan Dataset `data_rating`
     - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_train`**
         <img width="885" alt="Screenshot 2025-01-22 at 12 08 29" src="https://github.com/user-attachments/assets/1c88b00d-1280-41cb-b3d3-aed9230e3f55" />
 
       Dengan 3341 baris dan 7 kolom
 
-2. Dataset `Ratings` dengan Dataset `Users`
+2. Dataset `data_rating` dengan Dataset `data_users`
     - Dengan menggabungkan dataset tersebut, akan dimasukkan kedalam dataset baru yang bernama **`data_using`**
         <img width="710" alt="Screenshot 2025-01-22 at 12 07 14" src="https://github.com/user-attachments/assets/034aaa23-ef9e-4263-8b30-40007fad604b" />
       Dengan 2439 baris dan 4 kolom
@@ -157,9 +175,6 @@ Dilakukan persiapan penghapusan data duplikat, dengan membuat variable baru deng
 ### Konversi data series dan pembuatan dictionary
 Melakukan proses pengkonversian data series dalam bentuk list dimana menggunakan fungsi  `tolist()` dari library numpy. Proses ini menampilkan output dari jumlah books_id, books_title dan books_author yang memiliki jumlah yang sama yaitu 2519. Tahap berikutnya, membuat dictionary yang gunanya untuk menentukan pasangan key-value dari data books_id, books_title dan books_author.
 
-### Drop Kolom
-1. Pada dataset **data_books** kolom `Image-URL-S`, `Image-URL-M` dan `Image-URL-L` akan dihapus karena kolom tersebut tidak akan dipakai
-2. Pada dataset **data_users** kolom `Age` akan dihapus karena kolom tersebut akan dihapus
 ### Encode
 pada proses ini digunakan untuk menyandikan (encode) fitur ke dalam indeks integer dimana fitur yang digunakan yaitu fitur `UserID` dan `ISBN`.
 
@@ -174,9 +189,9 @@ Pada tahap ini menggunakan model collaborative filtering dimana menggunakan meto
 2. Langkah selanjutnya dengan melakukan proses compile terhadap model yang terdiri dari loss function yang menggunakan Binary Crossentropy, optimizer yang menggunakan Adam (Adaptive Moment Estimation) dan untuk metrics evaluation yaitu root mean squared error (RMSE) kemudian dilanjutkan dengan proses training
 
 3. Tahap akhir yaitu dengan mengambil sampel user secara acak dan definisikan variabel **book_not_visited** yang merupakan daftar book yang belum pernah dikunjungi oleh pengguna. Variabel book_not_visited diperoleh dengan menggunakan operator bitwise (~) pada variabel **book_visited_by_user**. Kemudian dalam memperoleh rekomendasi buku menggunakan fungsi model.predict() dari library Keras.
-    <img width="704" alt="Screenshot 2025-01-24 at 02 08 23" src="https://github.com/user-attachments/assets/849df559-9ff1-445d-bae2-d238b1c9bb83" />
+<img width="855" alt="Screenshot 2025-01-27 at 17 46 11" src="https://github.com/user-attachments/assets/a766cc99-9f7a-4f97-9b2c-78afee9e7226" />
 
-Gambar tersebut merupakan hasil rekomendasi dari model collaborative filtering dimana user dengan id 914.  10 Rekomendasi Buku Teratas yang salah satunya yaitu ‘Les Fourmis : Bernard Werber’.
+Gambar tersebut merupakan hasil rekomendasi dari model collaborative filtering dimana user dengan id 278418.  10 Rekomendasi Buku Teratas yang salah satunya yaitu ‘Les Fourmis : Bernard Werber’.
 ## Evaluation
 Menggunakan dua metrik evaluasi yang digunakan untuk mengukur kinerja model pada collaborative filtering, yang pertama menggunakan metrik Root Mean Squared Error (RMSE) dan metrik Accuracy, berikut penjelasannya :
 
@@ -190,10 +205,10 @@ lalu visualisasi metrik tersebut menggunakan plot dari library
 
 |Metrik|Nilai|
 |:--------|:----:|
-|root_mean_squared_error|0.1526|
-|val_root_mean_squared_error| 0.2949|
+|root_mean_squared_error|0.1496|
+|val_root_mean_squared_error| 0.2946|
 
-  Pada Tabel tersebut diperoleh pada epoch 100/100 nilai root_mean_squared_error sebesar 0.1526 dan nilai val_root_mean_squared_error sebesar 0.2949
+  Pada Tabel tersebut diperoleh pada epoch 100/100 nilai root_mean_squared_error sebesar 0.1496 dan nilai val_root_mean_squared_error sebesar 0.2946
 
 2. **Mean Squared Error (MSE)**. Teknik ini menghitung selisih rata-rata nilai sebenarnya dengan nilai prediksi.
 Rumus dari MSE sebagai berikut :
@@ -202,10 +217,10 @@ Rumus dari MSE sebagai berikut :
 
 
   Pada Gambar Tersebut, Hasil dari kode program di atas yakni : 
-  - MSE dari pada data train = 2.111916844346724e-05
-  - MSE dari pada data validation = 8.685258439506148e-05
+  - MSE dari pada data train = 2.1095555189407604e-05
+  - MSE dari pada data validation = 8.676144532400996e-05
 
 ### Kesimpulan
-Berdasarkan dari hasil visualisasi metrik RMSE , MSE dari pada data train adalah 2.1176639194068425e-05 dan MSE dari pada data validation adalah 8.684515903366322e-05. berdasarkan hal tersebut, pembuatan model dengan pendekatan Collaborative Filtering ini dapat digunakan untuk merekomendasikan buku yang belum pernah dibaca atau mungkin disukai pengguna. Selain itu, kini pengguna dapat mempersingkat waktu pencarian buku dengan memanfaatkan hasil rekomendasi yang telah diberikan oleh model.
+Berdasarkan dari hasil visualisasi metrik RMSE , MSE dari pada data train adalah 2.1095555189407604e-05 dan MSE dari pada data validation adalah 8.676144532400996e-05. berdasarkan hal tersebut, pembuatan model dengan pendekatan Collaborative Filtering ini dapat digunakan untuk merekomendasikan buku yang belum pernah dibaca atau mungkin disukai pengguna. Selain itu, kini pengguna dapat mempersingkat waktu pencarian buku dengan memanfaatkan hasil rekomendasi yang telah diberikan oleh model.
 
 
